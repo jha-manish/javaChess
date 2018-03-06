@@ -44,7 +44,7 @@ public abstract class Tiles {
 
         @Override
         public Piece getPiece(){
-            return this.pieceOnTile; 
+            return this.pieceOnTile;
         }
     }
 
