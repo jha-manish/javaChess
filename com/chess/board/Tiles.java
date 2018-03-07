@@ -16,7 +16,7 @@ public abstract class Tiles {
 
             final Map<Integer, EmptyTile> emptyTileMap= new HashMap<>();
 
-            for (int i=0; i<64; i++){
+            for (int i=0; i<BoardUtils.NUM_TILES; i++){
                 emptyTileMap.put(i, new EmptyTile(i));
             }
 
@@ -24,7 +24,7 @@ public abstract class Tiles {
     }
 
 
-    Tiles(int tileCoordiante){
+    Tiles(final int tileCoordiante){
         this.tileCoordiante= tileCoordiante;
     }
 

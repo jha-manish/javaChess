@@ -4,12 +4,15 @@ import com.chess.Alliance;
 import com.chess.board.Board;
 import com.chess.board.BoardUtils;
 import com.chess.board.Move;
+import com.chess.board.Move.AttackMove;
 import com.chess.board.Tiles;
 import com.google.common.collect.ImmutableList;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+
+import static com.chess.board.Move.*;
 
 public class Knight extends Piece {
 
@@ -20,16 +23,14 @@ public class Knight extends Piece {
     }
 
     @Override
-    public Collection<Move> calculateLegalMoves(Board board) {
+    public Collection<Move> calculateLegalMoves(final Board board) {
 
 
         final List<Move> legalMoves= new ArrayList<>();
 
         for (final int currentCandidateOffset: CANDIDATE_MOVE_COORDINATES){
 
-            int candidateDestinateCoordinate;
-
-            candidateDestinateCoordinate = this.piecePosition + currentCandidateOffset;
+            final int candidateDestinateCoordinate = this.piecePosition + currentCandidateOffset;
 
             if(BoardUtils.isValidTileCoordinate(candidateDestinateCoordinate)){
 
@@ -43,14 +44,15 @@ public class Knight extends Piece {
                 final Tiles candidateDestinationTile = board.getTile(candidateDestinateCoordinate);
 
                 if (!candidateDestinationTile.isTileOccupied()){
-                    legalMoves.add(new Move());
+                    legalMoves.add(new MajorMove(board, this, candidateDestinateCoordinate));
                 } else {
 
                     final Piece pieceAtDestination = candidateDestinationTile.getPiece();
                     final Alliance pieceAlliance = pieceAtDestination.getPieceAlliance();
 
-                    if (this.pieceAlliance != pieceAlliance){
-                        legalMoves.add(new Move());
+                    if (this.pieceAlliance != pieceAlliance) {
+                        legalMoves.add(new AttackMove(board, this, pieceAtDestination) {
+                        });
                     }
                 }
             }
