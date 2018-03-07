@@ -1,6 +1,16 @@
-public abstract class Tiles {
-    int tileCoordiante;
+package com.chess.board;
 
+import com.chess.pieces.Piece;
+
+import java.util.Map;
+
+public abstract class Tiles {
+
+    protected final int tileCoordiante;
+
+    private static final Map<Integer, EmptyTile> EMPTY_TILES = createPossibleEmptyTiles();
+
+    private static
     Tiles(int tileCoordiante){
         this.tileCoordiante= tileCoordiante;
     }
@@ -11,7 +21,7 @@ public abstract class Tiles {
 
     public static final class EmptyTile extends Tiles {
 
-        EmptyTile(int coordinate){
+        EmptyTile(final int coordinate){
             super(coordinate);
         }
 
@@ -30,7 +40,7 @@ public abstract class Tiles {
 
     public static final class OccupiedTile extends Tiles{
 
-        Piece pieceOnTile;
+        private final Piece pieceOnTile;
 
         OccupiedTile(int tileCoordinate, Piece pieceOnTile){
             super(tileCoordinate);
