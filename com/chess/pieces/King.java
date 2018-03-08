@@ -4,7 +4,7 @@ import com.chess.Alliance;
 import com.chess.board.Board;
 import com.chess.board.BoardUtils;
 import com.chess.board.Move;
-import com.chess.board.Tiles;
+import com.chess.board.Tile;
 import com.google.common.collect.ImmutableList;
 
 import java.util.ArrayList;
@@ -18,7 +18,7 @@ public class King extends Piece {
     private static final int[] CANDIDATE_MOVE_VECTOR_COORDINATES = {-9, -8, -7, -1, 1, 7, 8, 9};
 
     public King(Alliance pieceAlliance, int piecePosition) {
-        super(piecePosition, pieceAlliance);
+        super(PieceType.KNIGHT, piecePosition, pieceAlliance);
     }
 
     @Override
@@ -35,7 +35,7 @@ public class King extends Piece {
             }
 
             if (BoardUtils.isValidTileCoordinate(candidateDestinationCoordinate)) {
-                final Tiles candidateDestinationTile = board.getTile(candidateDestinationCoordinate);
+                final Tile candidateDestinationTile = board.getTile(candidateDestinationCoordinate);
 
                 if (!candidateDestinationTile.isTileOccupied()) {
                     legalMoves.add(new MajorMove(board, this, candidateDestinationCoordinate));

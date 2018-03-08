@@ -4,7 +4,7 @@ import com.chess.Alliance;
 import com.chess.board.Board;
 import com.chess.board.BoardUtils;
 import com.chess.board.Move;
-import com.chess.board.Tiles;
+import com.chess.board.Tile;
 import com.google.common.collect.ImmutableList;
 
 import java.util.ArrayList;
@@ -13,7 +13,7 @@ import java.util.List;
 
 public class Rook extends Piece {
     public Rook(Alliance pieceAlliance, final int piecePosition) {
-        super(piecePosition, pieceAlliance);
+        super(PieceType.ROOK, piecePosition, pieceAlliance);
     }
     private final static int[] CANDIDATE_MOVE_VECTOR_COORDINATES = {-8, -1, 1, 8};
 
@@ -36,7 +36,7 @@ public class Rook extends Piece {
                 candidateDestintationCoordinate += candidateCoordinateOffset;
 
                 if(BoardUtils.isValidTileCoordinate(candidateDestintationCoordinate)){
-                    final Tiles candidateDestinationTile = board.getTile(candidateDestintationCoordinate);
+                    final Tile candidateDestinationTile = board.getTile(candidateDestintationCoordinate);
 
                     if (!candidateDestinationTile.isTileOccupied()){
                         legalMoves.add(new Move.MajorMove(board, this, candidateDestintationCoordinate));

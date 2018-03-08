@@ -2,15 +2,20 @@ package com.chess.board;
 
 import com.chess.Alliance;
 import com.chess.pieces.*;
+import com.chess.player.BlackPlayer;
+import com.chess.player.WhitePlayer;
 import com.google.common.collect.ImmutableList;
 
 import java.util.*;
 
 public class Board {
 
-    private final List<Tiles> gameBoard;
+    private final List<Tile> gameBoard;
     private final Collection<Piece> whitePieces;
     private final Collection<Piece> blackPieces;
+
+    private final WhitePlayer whitePlayer;
+    private final BlackPlayer blackPlayer;
 
     private Board(Builder builder){
         this.gameBoard = createGameBoard(builder);
@@ -19,6 +24,9 @@ public class Board {
 
         final Collection<Move> whiteStandardLegalMoves = caculateLegalMoves(this.whitePieces);
         final Collection<Move> blackStandardLegalMoves = caculateLegalMoves(this.blackPieces);
+
+        this.whitePlayer= new WhitePlayer(this, whiteStandardLegalMoves, blackStandardLegalMoves);
+        this.blackPlayer= new BlackPlayer(this, whiteStandardLegalMoves, blackStandardLegalMoves);
     }
 
     @Override
@@ -34,8 +42,16 @@ public class Board {
         return builder.toString();
     }
 
-    private static String prettyPrint(final Tiles tile) {
+    private static String prettyPrint(final Tile tile) {
         return tile.toString();
+    }
+
+    public Collection<Piece> getBlackPieces() {
+        return this.blackPieces;
+    }
+
+    public Collection<Piece> getWhitePieces() {
+        return this.whitePieces;
     }
 
     private Collection<Move> caculateLegalMoves(Collection<Piece> pieces) {
@@ -49,11 +65,11 @@ public class Board {
         return ImmutableList.copyOf(legalMoves);
     }
 
-    private static Collection<Piece> calculateActivePieces(final List<Tiles> gameBoard, final Alliance alliance) {
+    private static Collection<Piece> calculateActivePieces(final List<Tile> gameBoard, final Alliance alliance) {
 
         final List<Piece> activePieces = new ArrayList<>();
 
-        for (final  Tiles tile : gameBoard){
+        for (final Tile tile : gameBoard){
             if (tile.isTileOccupied()){
                 final Piece piece = tile.getPiece();
                 if (piece.getPieceAlliance() == alliance){
@@ -65,14 +81,14 @@ public class Board {
 
     }
 
-    public Tiles getTile(final int tileCoordinate){
+    public Tile getTile(final int tileCoordinate){
         return gameBoard.get(tileCoordinate);
     }
 
-    private static List<Tiles> createGameBoard(final Builder builder){
-        final Tiles[] tiles= new Tiles[BoardUtils.NUM_TILES];
+    private static List<Tile> createGameBoard(final Builder builder){
+        final Tile[] tiles= new Tile[BoardUtils.NUM_TILES];
         for (int i = 0; i<BoardUtils.NUM_TILES; i++){
-            tiles[i] = Tiles.createTile(i, builder.boardConfig.get(i));
+            tiles[i] = Tile.createTile(i, builder.boardConfig.get(i));
         }
         return ImmutableList.copyOf(tiles);
     }

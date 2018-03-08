@@ -6,7 +6,7 @@ import com.chess.board.BoardUtils;
 import com.chess.board.Move;
 import com.chess.board.Move.AttackMove;
 import com.chess.board.Move.MajorMove;
-import com.chess.board.Tiles;
+import com.chess.board.Tile;
 import com.google.common.collect.ImmutableList;
 
 import java.util.ArrayList;
@@ -18,7 +18,7 @@ public class Knight extends Piece {
     private static final int [] CANDIDATE_MOVE_COORDINATES={-17, -15, 10, -6, 6, 10, 15, 17};
 
     public Knight(Alliance piecePosition, int pieceAlliance) {
-        super(pieceAlliance, piecePosition);
+        super(PieceType.KNIGHT, pieceAlliance, piecePosition);
     }
 
     @Override
@@ -40,7 +40,7 @@ public class Knight extends Piece {
                     continue;
                 }
 
-                final Tiles candidateDestinationTile = board.getTile(candidateDestinationCoordinate);
+                final Tile candidateDestinationTile = board.getTile(candidateDestinationCoordinate);
 
                 if (!candidateDestinationTile.isTileOccupied()){
                     legalMoves.add(new MajorMove(board, this, candidateDestinationCoordinate));
