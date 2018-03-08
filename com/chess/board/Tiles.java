@@ -44,6 +44,11 @@ public abstract class Tiles {
         }
 
         @Override
+        public String toString(){
+           return "-";
+        }
+
+        @Override
         public boolean isTileOccupied(){
             return false;
         }
@@ -77,6 +82,11 @@ public abstract class Tiles {
         @Override
         public Piece getPiece(){
             return this.pieceOnTile;
+        }
+
+        @Override
+        public String toString(){
+            return getPiece().getPieceAlliance().isBlack() ? getPiece().toString().toLowerCase() : getPiece().toString();
         }
     }
 

@@ -12,10 +12,13 @@ import java.util.Collection;
 import java.util.List;
 
 public class Queen extends Piece{
+
     public Queen(Alliance pieceAlliance, int piecePosition) {
         super(piecePosition, pieceAlliance);
     }
+
     private final static int[] CANDIDATE_MOVE_VECTOR_COORDINATES = {-9, -8, -7, -1, 1, 7, 8, 9};
+
     @Override
     public Collection<Move> calculateLegalMoves(final Board board) {
 
@@ -54,6 +57,12 @@ public class Queen extends Piece{
         }
         return ImmutableList.copyOf(legalMoves);
     }
+
+    @Override
+    public String toString(){
+        return Piece.PieceType.QUEEN.toString();
+    }
+
     private static boolean isFirstColumnExclusion(final int currentPosition, final int candidateOffset){
         return BoardUtils.FIRST_COLUMN[currentPosition] && (candidateOffset == -1 || candidateOffset == -9 || candidateOffset == 7);
     }

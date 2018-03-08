@@ -1,7 +1,6 @@
 package com.chess.board;
 
 import com.chess.pieces.Piece;
-import com.google.common.base.Joiner;
 
 public abstract class Move {
 
@@ -10,10 +9,10 @@ public abstract class Move {
     final Piece movedpiece;
     final int destinationCoordinate;
 
-    private Move(final Board board, final Piece movedpiece, final int destinatioonCoordinate){
+    private Move(final Board board, final Piece movedPiece, final int destinationCoordinate){
         this.board = board;
-        this.movedpiece = movedpiece;
-        this.destinationCoordinate = destinatioonCoordinate;
+        this.movedpiece = movedPiece;
+        this.destinationCoordinate = destinationCoordinate;
     }
 
     public static final class MajorMove extends Move{
