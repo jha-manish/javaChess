@@ -12,7 +12,7 @@ import java.util.Collection;
 import java.util.List;
 
 public class Rook extends Piece {
-    Rook(int piecePosition, Alliance pieceAlliance) {
+    public Rook(Alliance pieceAlliance, final int piecePosition) {
         super(piecePosition, pieceAlliance);
     }
     private final static int[] CANDIDATE_MOVE_VECTOR_COORDINATES = {-8, -1, 1, 8};

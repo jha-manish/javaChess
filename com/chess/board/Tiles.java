@@ -32,6 +32,11 @@ public abstract class Tiles {
 
     public abstract Piece getPiece();
 
+    public static Tiles createTile(final int tileCoordiante, final Piece piece) {
+
+        return piece != null? new OccupiedTile(tileCoordiante, piece) : EMPTY_TILES_CACHE.get(tileCoordiante);
+    }
+
     public static final class EmptyTile extends Tiles {
 
        private EmptyTile(final int coordinate){
